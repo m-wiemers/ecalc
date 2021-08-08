@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { View, Dimensions, StyleSheet } from "react-native";
 import InputSection from "./components/InputSection";
 import Header from "./components/Header";
@@ -18,11 +18,7 @@ const items = [
 ];
 
 const App = () => {
-  const [category, setCategory] = useState<string | number>("");
-
-  useEffect(() => {
-    console.log(category);
-  }, [category]);
+  const [category, setCategory] = useState<string | number>(items[0].label);
 
   return (
     <View style={styles.container}>
