@@ -1,3 +1,16 @@
+import { StyleSheet } from "react-native";
+
+export const section = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: 5,
+    borderRadius: 10,
+    marginBottom: 10,
+  },
+});
+
 const theme = {
   colors: {
     blue: {

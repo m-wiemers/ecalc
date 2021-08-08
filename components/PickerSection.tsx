@@ -1,13 +1,15 @@
 import React from "react";
 import { View, Text, StyleSheet, PickerPropsAndroid } from "react-native";
 import { Picker, PickerProps } from "@react-native-picker/picker";
-import theme from "../theme/Theme";
+import theme, { section } from "../theme/Theme";
 
-type PickerSectionProps = PickerProps & {
+export type PickerSectionProps = PickerProps & {
+  label?: string;
   pickerItems: { label: string; value: string }[];
 };
 
 const PickerSection = ({
+  label,
   pickerItems,
   ...props
 }: PickerSectionProps): JSX.Element => {
@@ -18,8 +20,8 @@ const PickerSection = ({
   });
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.label}>Hello</Text>
+    <View style={section.container}>
+      <Text style={styles.label}>{label}</Text>
       <View style={styles.pickerBorder}>
         <Picker
           dropdownIconColor={theme.colors.grey._700}
@@ -34,14 +36,6 @@ const PickerSection = ({
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    padding: 5,
-    borderRadius: 10,
-    marginBottom: 10,
-  },
   label: {
     maxWidth: 150,
     paddingBottom: 2,

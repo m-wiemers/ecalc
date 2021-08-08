@@ -7,22 +7,26 @@ import {
   Dimensions,
   TextInputProps,
 } from "react-native";
-import theme from "../theme/Theme";
+import theme, { section } from "../theme/Theme";
 
 const windowWidth = Dimensions.get("screen").width;
 const windowHeight = Dimensions.get("screen").height;
 
 type StyleProps = TextInputProps & {
-  type: boolean;
-  label: string;
+  withBackground?: boolean;
+  label?: string;
 };
 
-const InputSection = ({ type, label, ...props }: StyleProps): JSX.Element => {
+const InputSection = ({
+  withBackground,
+  label,
+  ...props
+}: StyleProps): JSX.Element => {
   return (
     <View
       style={[
-        styles.container,
-        { backgroundColor: type ? theme.colors.grey._200 : "#fff" },
+        section.container,
+        { backgroundColor: withBackground ? theme.colors.grey._200 : "#fff" },
       ]}
     >
       <Text style={styles.label}>{label}</Text>
@@ -32,14 +36,6 @@ const InputSection = ({ type, label, ...props }: StyleProps): JSX.Element => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    padding: 5,
-    borderRadius: 10,
-    marginBottom: 10,
-  },
   label: {
     maxWidth: 150,
     paddingBottom: 2,

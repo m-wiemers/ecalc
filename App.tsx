@@ -1,13 +1,11 @@
 import "react-native-gesture-handler";
 import React, { useState } from "react";
-import { View, Dimensions, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import InputSection from "./components/InputSection";
 import Header from "./components/Header";
 import theme from "./theme/Theme";
 import PickerSection from "./components/PickerSection";
-
-const windowWidth = Dimensions.get("screen").width;
-const windowHeight = Dimensions.get("screen").height;
+import SwitchSection from "./components/SwitchSection";
 
 const items = [
   { label: "label", value: "value" },
@@ -19,17 +17,30 @@ const items = [
 
 const App = () => {
   const [category, setCategory] = useState<string | number>(items[0].label);
+  const [isPrivate, setIsPrivate] = useState(true);
+  const toggleSwitch = () => setIsPrivate((prevState) => !prevState);
 
   return (
     <View style={styles.container}>
       <Header />
       <View style={styles.content}>
-        <InputSection type={false} label="Label" />
-        <InputSection type label="Label" />
+        <InputSection label="Label" />
+        <InputSection withBackground label="Label" />
         <PickerSection
+          label="Label"
           pickerItems={items}
           selectedValue={category}
           onValueChange={(itemValue) => setCategory(itemValue)}
+        />
+        <SwitchSection
+          trackColor={{
+            false: theme.colors.grey._300,
+            true: theme.colors.green._100,
+          }}
+          label="Privatverkäufer"
+          isTrue={isPrivate}
+          value={isPrivate}
+          onValueChange={toggleSwitch}
         />
       </View>
     </View>
