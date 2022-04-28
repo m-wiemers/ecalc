@@ -7,7 +7,7 @@ type Props = {
   label: string;
 };
 
-const StyleButton = ({ onPress, label }: Props) => {
+const StyledButton = ({ onPress, label }: Props) => {
   return (
     <Pressable style={buttonStyles.container} onPress={onPress}>
       <Text style={buttonStyles.text}>{label}</Text>
@@ -15,14 +15,14 @@ const StyleButton = ({ onPress, label }: Props) => {
   );
 };
 
-export default StyleButton;
+export default StyledButton;
 
 const buttonStyles = StyleSheet.create({
   container: {
     backgroundColor: color.indigo._700,
     paddingHorizontal: 20,
     paddingVertical: 10,
-    alignSelf: "flex-start",
+    alignSelf: "center",
     borderRadius: 10,
   },
   text: {
