@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "944869989083",
+    "project_id": "ecalc-755e2",
+    "storage_bucket": "ecalc-755e2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:944869989083:android:6e52e4a084611e9de44afe",
+        "android_client_info": {
+          "package_name": "de.klebauter.ecalc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "944869989083-as5akn957kdu37pjpav4afac16uc738u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRd-JwPpR58zgbae0I9pcdd-ASSDqdTXU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "944869989083-as5akn957kdu37pjpav4afac16uc738u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
