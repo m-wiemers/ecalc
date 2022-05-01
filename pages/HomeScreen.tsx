@@ -14,13 +14,11 @@ const HomeScreen = ({ navigation, ...props }: Props) => {
   const [password, setPassword] = useState("");
 
   useEffect(() => {
-    const onSubscribe = auth.onAuthStateChanged(
-      (user: FirebaseAuthTypes.User) => {
-        if (user) {
-          navigation.navigate("Settings");
-        }
+    const onSubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        navigation.navigate("Settings");
       }
-    );
+    });
 
     return onSubscribe;
   }, []);
@@ -28,22 +26,26 @@ const HomeScreen = ({ navigation, ...props }: Props) => {
   const handleSignup = () => {
     auth
       .createUserWithEmailAndPassword(email, password)
-      .then((userCredentials: FirebaseAuthTypes.auth.UserCredential) => {
+      .then((userCredentials) => {
         const user = userCredentials.user;
-        alert(`Register Komplett mit ${user.email}`);
+        {
+          user && alert(`Register Komplett mit ${user.email}`);
+        }
         console.log(userCredentials);
       })
-      .catch((error: FirebaseAuthTypes.auth.Error) => alert(error.message));
+      .catch((error) => alert(error.message));
   };
 
   const handleLogin = () => {
     auth
       .signInWithEmailAndPassword(email, password)
-      .then((userCredentials: FirebaseAuthTypes.auth.UserCredential) => {
+      .then((userCredentials) => {
         const user = userCredentials.user;
-        console.log(user.email);
+        {
+          user && console.log(user.email);
+        }
       })
-      .catch((error: FirebaseAuthTypes.auth.Error) => alert(error.message));
+      .catch((error) => alert(error.message));
   };
 
   return (
