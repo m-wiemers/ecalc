@@ -1,5 +1,6 @@
-import firebase from "firebase/app";
-import "firebase/firestore";
+import { firebase } from "@firebase/app";
+import "@firebase/auth";
+// import "firebase/firestore";
 import {
   FIREBASE_API_KEY,
   FIREBASE_AUTH_DOMAIN,
@@ -20,12 +21,7 @@ const firebaseConfig = {
   appId: FIREBASE_APP_ID,
 };
 
-let app;
-if (firebase.apps.length === 0) {
-  app = firebase.initializeApp(firebaseConfig);
-} else {
-  app = firebase.app();
-}
+const app = firebase.initializeApp(firebaseConfig);
 
 const auth = firebase.auth();
 
