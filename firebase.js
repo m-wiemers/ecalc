@@ -1,16 +1,23 @@
 // Import the functions you need from the SDKs you need
 import * as firebase from "firebase";
+import {
+  FIREBASE_API_KEY,
+  FIREBASE_AUTH_DOMAIN,
+  FIREBASE_STORAGE_BUCKET,
+  FIREBASE_MESSAGING_SENDER_ID,
+  FIREBASE_APP_ID,
+} from "@env";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAIxLrqip_OZCwUo016vxAq8fyTD_DmFg0",
-  authDomain: "ecalc-baa63.firebaseapp.com",
+  apiKey: FIREBASE_API_KEY,
+  authDomain: FIREBASE_AUTH_DOMAIN,
   projectId: "ecalc-baa63",
-  storageBucket: "ecalc-baa63.appspot.com",
-  messagingSenderId: "753808773994",
-  appId: "1:753808773994:web:456751cb40717d0d828b13",
+  storageBucket: FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: FIREBASE_MESSAGING_SENDER_ID,
+  appId: FIREBASE_APP_ID,
 };
 
 let app;
