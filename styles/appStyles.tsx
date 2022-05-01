@@ -3,8 +3,10 @@ import color from "./colors";
 const appStyles = {
   container: {
     flex: 1,
-    padding: 10,
-    backgroundColor: color.grey._700
+    backgroundColor: color.grey._700,
+  },
+  header: {
+    backgroundColor: color.indigo._600,
   },
 };
 

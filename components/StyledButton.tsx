@@ -22,11 +22,14 @@ const buttonStyles = StyleSheet.create({
     backgroundColor: color.indigo._700,
     paddingHorizontal: 20,
     paddingVertical: 10,
-    alignSelf: "center",
     borderRadius: 10,
+    width: "70%",
+    marginBottom: 10,
   },
   text: {
     textAlign: "center",
     color: color.grey._100,
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });

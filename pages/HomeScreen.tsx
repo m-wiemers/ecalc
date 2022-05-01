@@ -6,6 +6,7 @@ import { ParamListBase } from "@react-navigation/native";
 import { TextInput } from "react-native-gesture-handler";
 import { auth } from "../firebase";
 import FirebaseAuthTypes from "firebase";
+import StyledInput from "../components/StyledInput";
 
 type Props = NativeStackScreenProps<ParamListBase>;
 
@@ -55,14 +56,23 @@ const HomeScreen = ({ navigation, ...props }: Props) => {
     >
       <Text>Welcome here</Text>
 
-      <TextInput
-        style={{ backgroundColor: "#fff", borderColor: "#000", padding: 20 }}
+      <StyledInput
+        label="Email-Adresse"
+        placeholder="deinName@deineDomain.de"
         value={email}
         onChangeText={(text) => setEmail(text)}
       />
-      <TextInput value={password} onChangeText={(text) => setPassword(text)} />
+      <StyledInput
+        label="Passwort"
+        placeholder="DeinPasswort"
+        value={password}
+        onChangeText={(text) => setPassword(text)}
+      />
       <StyledButton label="Login" onPress={handleLogin} />
-      <StyledButton label="Register" onPress={handleSignup} />
+      <StyledButton
+        label="Register"
+        onPress={() => navigation.navigate("Register")}
+      />
     </View>
   );
 };

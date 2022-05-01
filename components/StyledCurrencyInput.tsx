@@ -1,48 +1,45 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { TextInput, TextInputProps } from "react-native";
+import CurrencyInput, { CurrencyInputProps } from "react-native-currency-input";
 import color from "../styles/colors";
 
 type Props = {
   label?: string;
 };
 
-const StyledInput = ({ label, ...props }: Props & TextInputProps) => {
-  const [isFocused, setIsFocused] = useState<boolean>(false);
-
+const StyledCurrencyInput = ({
+  label,
+  ...props
+}: Props & CurrencyInputProps) => {
   return (
     <View style={inputStyle.container}>
       {label && <Text style={inputStyle.label}>{label}</Text>}
-      <TextInput
-        style={[inputStyle.input, isFocused && inputStyle.focus]}
+      <CurrencyInput
+        style={inputStyle.input}
         placeholderTextColor={color.grey._400}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
         {...props}
       />
     </View>
   );
 };
 
-export default StyledInput;
+export default StyledCurrencyInput;
 
 const inputStyle = StyleSheet.create({
   container: {
-    width: "70%",
-    marginBottom: 10,
+    display: "flex",
   },
   label: {
     color: "#eee",
     marginLeft: 8,
   },
   input: {
-    color: color.grey._100,
+    color: "#eee",
     borderColor: "#fff",
     borderWidth: 2,
     borderRadius: 10,
     padding: 10,
-  },
-  focus: {
-    borderColor: color.indigo._700,
+    maxWidth: "90%",
+    width: 200,
   },
 });
