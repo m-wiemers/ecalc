@@ -9,6 +9,7 @@ import SettingScreen from "./pages/SettingScreen";
 import color from "./styles/colors";
 import appStyles from "./styles/appStyles";
 import RegisterScreen from "./pages/RegisterScreen";
+import EmailVerifyScreen from "./pages/EmailVerify";
 const Stack = createNativeStackNavigator();
 
 const App = () => {
@@ -35,6 +36,9 @@ const App = () => {
             component={RegisterScreen}
             options={{ title: "Registrieren" }}
           />
+          <Stack.Screen name="Email Verify" options={{ title: "Verifizieren" }}>
+            {(props) => <EmailVerifyScreen {...props} />}
+          </Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>

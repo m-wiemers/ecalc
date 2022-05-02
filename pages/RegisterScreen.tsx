@@ -56,13 +56,13 @@ const RegisterScreen = ({ navigation, ...props }: Props) => {
       .createUserWithEmailAndPassword(email, password)
       .then((userCredentials) => {
         const user = userCredentials.user;
+        user?.sendEmailVerification();
         {
           user &&
             alert(
               `Danke! Bitte Bestätige deine Email-Adresse mit der Email, die wir dir gesendet haben an: ${user.email}`
             );
         }
-        console.log(userCredentials);
       })
       .catch((error) => alert(error.message));
   };

@@ -13,27 +13,36 @@ type Props = NativeStackScreenProps<ParamListBase>;
 const HomeScreen = ({ navigation, ...props }: Props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [notClickable, setNotClickable] = useState(true);
 
-  useEffect(() => {
-    const onSubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        navigation.navigate("Settings");
-      }
-    });
+  // useEffect(() => {
+  //   const onSubscribe = auth.onAuthStateChanged((user) => {
+  //     if (user) {
+  //       navigation.navigate("Settings");
+  //     }
+  //   });
 
-    return onSubscribe;
-  }, []);
+  //   return onSubscribe;
+  // }, []);
 
   const handleLogin = () => {
     auth
       .signInWithEmailAndPassword(email, password)
-      .then((userCredentials) => {
-        const user = userCredentials.user;
-        {
-          user && console.log(user.email);
+      .then(() => {
+        if (auth.currentUser?.emailVerified) {
+          navigation.navigate("Settings");
+        } else {
+          console.log("not verified");
+          const emailAdress = auth.currentUser?.email;
+          navigation.navigate("Email Verify", { email: emailAdress });
         }
       })
       .catch((error) => alert(error.message));
+  };
+
+  const handleLogOut = () => {
+    auth.signOut();
+    console.log("signed out");
   };
 
   return (
@@ -48,6 +57,7 @@ const HomeScreen = ({ navigation, ...props }: Props) => {
         placeholder="deinName@domain.de"
         value={email}
         onChangeText={(text) => setEmail(text)}
+        // onBlur={handleEmailBlur}
       />
       <StyledInput
         label="Passwort"
@@ -60,12 +70,14 @@ const HomeScreen = ({ navigation, ...props }: Props) => {
         label="Login"
         onPress={handleLogin}
         addStyle={{ marginTop: 20 }}
+        // disabled={notClickable}
       />
       <Text style={globalStyles.underline}>Noch kein Konto?</Text>
       <StyledButton
         label="Anmelden"
         onPress={() => navigation.navigate("Register")}
       />
+      <StyledButton label="Log Out" onPress={handleLogOut} />
     </View>
   );
 };
