@@ -1,16 +1,43 @@
 import React from "react";
-import { Pressable, Text, StyleSheet } from "react-native";
+import {
+  Pressable,
+  Text,
+  StyleSheet,
+  ViewStyle,
+  PressableProps,
+} from "react-native";
 import color from "../styles/colors";
 
 type Props = {
   onPress(): void;
   label: string;
+  addStyle?: ViewStyle;
 };
 
-const StyledButton = ({ onPress, label }: Props) => {
+const StyledButton = ({
+  onPress,
+  label,
+  addStyle,
+  ...props
+}: Props & PressableProps) => {
   return (
-    <Pressable style={buttonStyles.container} onPress={onPress}>
-      <Text style={buttonStyles.text}>{label}</Text>
+    <Pressable
+      {...props}
+      style={[
+        buttonStyles.container,
+        addStyle && addStyle,
+        props.disabled && { backgroundColor: color.grey._100 },
+      ]}
+      onPress={onPress}
+    >
+      <Text
+        style={[
+          buttonStyles.text,
+          props.disabled && { color: color.grey._300 },
+        ]}
+      >
+        {label}
+      </Text>
     </Pressable>
   );
 };

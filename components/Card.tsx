@@ -6,7 +6,7 @@ import Title from "./Title";
 const Card = () => {
   return (
     <View style={cardStyles.container}>
-      <Title difStyle={cardStyles.title}>Hier kommt der Titel!</Title>
+      <Title text="Hey" difStyle={cardStyles.title} />
       <Text style={cardStyles.text}>
         Hier kommt ein bisschen Text, der hoffentlich lang genug ist alles
         auszufüllen - zumindest bis zur zweiten Zeile

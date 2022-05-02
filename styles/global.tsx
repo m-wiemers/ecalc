@@ -6,8 +6,15 @@ const globalStyles = StyleSheet.create({
     color: color.indigo._100,
   },
   title: {
-    color: color.indigo._700,
+    color: color.indigo._100,
     fontSize: 30,
+    fontWeight: "bold",
+    marginBottom: 20,
+  },
+  underline: {
+    color: color.indigo._100,
+    fontSize: 10,
+    marginBottom: 3,
   },
 });
 
