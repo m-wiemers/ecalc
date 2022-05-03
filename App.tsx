@@ -1,15 +1,14 @@
 import "react-native-gesture-handler";
-import React, { useEffect, useState } from "react";
-import { View, Text } from "react-native";
+import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./pages/HomeScreen";
 import SettingScreen from "./pages/SettingScreen";
-import color from "./styles/colors";
 import appStyles from "./styles/appStyles";
-import RegisterScreen from "./pages/RegisterScreen";
-import EmailVerifyScreen from "./pages/EmailVerify";
+import RegisterScreen from "./pages/authes/RegisterScreen";
+import EmailVerifyScreen from "./pages/authes/EmailVerify";
+import ForgetPasswordScreen from "./pages/authes/ForgetPassword";
 const Stack = createNativeStackNavigator();
 
 const App = () => {
@@ -38,6 +37,12 @@ const App = () => {
           />
           <Stack.Screen name="Email Verify" options={{ title: "Verifizieren" }}>
             {(props) => <EmailVerifyScreen {...props} />}
+          </Stack.Screen>
+          <Stack.Screen
+            name="Forget Password"
+            options={{ title: "Passwort vergessen" }}
+          >
+            {(props) => <ForgetPasswordScreen {...props} />}
           </Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>

@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { View } from "react-native";
-import StyledButton from "../components/StyledButton";
+import StyledButton from "../../components/StyledButton";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { ParamListBase } from "@react-navigation/native";
-import { auth } from "../firebase";
-import Title from "../components/Title";
-import StyledInput from "../components/StyledInput";
+import { auth } from "../../firebase";
+import Title from "../../components/Title";
+import StyledInput from "../../components/StyledInput";
 
 type Props = NativeStackScreenProps<ParamListBase>;
 

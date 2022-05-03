@@ -15,15 +15,13 @@ const HomeScreen = ({ navigation, ...props }: Props) => {
   const [password, setPassword] = useState("");
   const [notClickable, setNotClickable] = useState(true);
 
-  // useEffect(() => {
-  //   const onSubscribe = auth.onAuthStateChanged((user) => {
-  //     if (user) {
-  //       navigation.navigate("Settings");
-  //     }
-  //   });
-
-  //   return onSubscribe;
-  // }, []);
+  useEffect(() => {
+    {
+      email.length < 6 || password.length < 6
+        ? setNotClickable(true)
+        : setNotClickable(false);
+    }
+  }, [email, password]);
 
   const handleLogin = () => {
     auth
@@ -70,14 +68,17 @@ const HomeScreen = ({ navigation, ...props }: Props) => {
         label="Login"
         onPress={handleLogin}
         addStyle={{ marginTop: 20 }}
-        // disabled={notClickable}
+        disabled={notClickable}
       />
       <Text style={globalStyles.underline}>Noch kein Konto?</Text>
       <StyledButton
         label="Anmelden"
         onPress={() => navigation.navigate("Register")}
       />
-      <StyledButton label="Log Out" onPress={handleLogOut} />
+      <StyledButton
+        label="Passwort vergessen"
+        onPress={() => navigation.navigate("Forget Password")}
+      />
     </View>
   );
 };
