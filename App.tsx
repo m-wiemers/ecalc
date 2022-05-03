@@ -9,7 +9,10 @@ import appStyles from "./styles/appStyles";
 import RegisterScreen from "./pages/authes/RegisterScreen";
 import EmailVerifyScreen from "./pages/authes/EmailVerify";
 import ForgetPasswordScreen from "./pages/authes/ForgetPassword";
+import CalcHome from "./pages/CalcHome";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
 
 const App = () => {
   return (
@@ -26,11 +29,6 @@ const App = () => {
             {(props) => <HomeScreen {...props} />}
           </Stack.Screen>
           <Stack.Screen
-            name="Settings"
-            component={SettingScreen}
-            options={{ title: "Settings" }}
-          />
-          <Stack.Screen
             name="Register"
             component={RegisterScreen}
             options={{ title: "Registrieren" }}
@@ -44,6 +42,11 @@ const App = () => {
           >
             {(props) => <ForgetPasswordScreen {...props} />}
           </Stack.Screen>
+          <Stack.Screen
+            name="Calc"
+            component={CalcHome}
+            options={{ headerShown: false }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>

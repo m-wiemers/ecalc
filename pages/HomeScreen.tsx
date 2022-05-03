@@ -7,6 +7,7 @@ import { auth } from "../firebase";
 import StyledInput from "../components/StyledInput";
 import Title from "../components/Title";
 import globalStyles from "../styles/global";
+import LinkText from "../components/LinkText";
 
 type Props = NativeStackScreenProps<ParamListBase>;
 
@@ -38,16 +39,8 @@ const HomeScreen = ({ navigation, ...props }: Props) => {
       .catch((error) => alert(error.message));
   };
 
-  const handleLogOut = () => {
-    auth.signOut();
-    console.log("signed out");
-  };
-
   return (
-    <View
-      {...props}
-      style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-    >
+    <View {...props} style={{ flex: 1, alignItems: "center", marginTop: 40 }}>
       <Title text="Melde dich an" />
 
       <StyledInput
@@ -55,7 +48,6 @@ const HomeScreen = ({ navigation, ...props }: Props) => {
         placeholder="deinName@domain.de"
         value={email}
         onChangeText={(text) => setEmail(text)}
-        // onBlur={handleEmailBlur}
       />
       <StyledInput
         label="Passwort"
@@ -70,14 +62,21 @@ const HomeScreen = ({ navigation, ...props }: Props) => {
         addStyle={{ marginTop: 20 }}
         disabled={notClickable}
       />
-      <Text style={globalStyles.underline}>Noch kein Konto?</Text>
+      <LinkText
+        label="Passwort vergessen"
+        onPress={() => navigation.navigate("Forget Password")}
+      />
+      <Text style={[globalStyles.underline, { marginTop: 40 }]}>
+        Noch kein Konto?
+      </Text>
       <StyledButton
         label="Anmelden"
         onPress={() => navigation.navigate("Register")}
       />
       <StyledButton
-        label="Passwort vergessen"
-        onPress={() => navigation.navigate("Forget Password")}
+        addStyle={{ position: "absolute", bottom: 30 }}
+        label="Ohne Anmeldung weiter"
+        onPress={() => navigation.navigate("Calc")}
       />
     </View>
   );
