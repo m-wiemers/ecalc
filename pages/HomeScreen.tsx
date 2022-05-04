@@ -16,6 +16,13 @@ const HomeScreen = ({ navigation, ...props }: Props) => {
   const [password, setPassword] = useState("");
   const [notClickable, setNotClickable] = useState(true);
 
+  auth.onAuthStateChanged((user) => {
+    const userIsVerified = auth.currentUser?.emailVerified;
+    if (user && userIsVerified) {
+      navigation.navigate("CalcNavigator", { loggedIn: true });
+    }
+  });
+
   useEffect(() => {
     {
       email.length < 6 || password.length < 6
@@ -29,10 +36,7 @@ const HomeScreen = ({ navigation, ...props }: Props) => {
       .signInWithEmailAndPassword(email, password)
       .then(() => {
         if (auth.currentUser?.emailVerified) {
-          navigation.navigate("CalcNavigator", {
-            screen: "CalcNavigator",
-            params: { loggedIn: true },
-          });
+          navigation.navigate("CalcNavigator", { loggedIn: true });
         } else {
           console.log("not verified");
           const emailAdress = auth.currentUser?.email;
@@ -80,7 +84,7 @@ const HomeScreen = ({ navigation, ...props }: Props) => {
         addStyle={{ marginTop: 20 }}
         label="Ohne Anmeldung weiter"
         onPress={() =>
-          navigation.navigate("CalcNavigator", { params: { loggedIn: false } })
+          navigation.navigate("CalcNavigator", { loggedIn: false })
         }
       />
     </View>

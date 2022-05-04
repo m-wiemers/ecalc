@@ -8,17 +8,15 @@ import {
 import CalcHome from "../pages/CalcHome";
 import { auth } from "../firebase";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { ParamListBase, useFocusEffect } from "@react-navigation/native";
+import { ParamListBase } from "@react-navigation/native";
 
 const Drawer = createDrawerNavigator();
 
-type Props = NativeStackScreenProps<ParamListBase> & {
-  params: {
-    loggedIn: boolean;
-  };
-};
+type Props = NativeStackScreenProps<ParamListBase>;
 
-const CalcNavigator = ({ navigation, params }: Props) => {
+const CalcNavigator = ({ navigation, route }: Props) => {
+  const isLoggedIn: any = route.params;
+
   const handleLogout = () => {
     auth.signOut().then(() => navigation.navigate("Home"));
   };
@@ -36,11 +34,12 @@ const CalcNavigator = ({ navigation, params }: Props) => {
       drawerContent={(props) => <CustomDrawerContent {...props} />}
       initialRouteName="CalcHome"
     >
-      <Drawer.Screen name="CalcHome">
-        {(props) => (
-          <CalcHome {...props} params={{ loggedIn: params.loggedIn }} />
-        )}
-      </Drawer.Screen>
+      <Drawer.Screen
+        name="CalcHome"
+        component={CalcHome}
+        initialParams={isLoggedIn}
+        options={{ unmountOnBlur: true }}
+      />
     </Drawer.Navigator>
   );
 };

@@ -18,12 +18,9 @@ const HomeNavigator = () => {
         contentStyle: appStyles.container,
       }}
     >
-      <Stack.Screen
-        name="CalcNavigator"
-        component={CalcNavigator}
-        initialParams={{ loggedIn: false }}
-        options={{ headerShown: false }}
-      />
+      <Stack.Screen name="CalcNavigator" options={{ headerShown: false }}>
+        {(props) => <CalcNavigator {...props} />}
+      </Stack.Screen>
       <Stack.Screen name="Home" options={{ title: "eCalc" }}>
         {(props) => <HomeScreen {...props} />}
       </Stack.Screen>
