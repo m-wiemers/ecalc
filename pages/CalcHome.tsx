@@ -14,15 +14,9 @@ type Props = NativeStackScreenProps<ParamListBase> & {
 };
 
 const CalcHome = ({ navigation, params }: Props) => {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>();
 
-  useEffect(() => {
-    if (!params) {
-      <Text style={{ color: "#fff" }}>Loading...</Text>;
-    } else {
-      setIsLoggedIn(params.loggedIn);
-    }
-  }, [params]);
+  setIsLoggedIn(params.loggedIn);
 
   return (
     <SafeAreaView>

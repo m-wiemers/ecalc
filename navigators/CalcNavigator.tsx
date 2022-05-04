@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Text } from "react-native";
 import {
   createDrawerNavigator,
@@ -8,7 +8,7 @@ import {
 import CalcHome from "../pages/CalcHome";
 import { auth } from "../firebase";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { ParamListBase } from "@react-navigation/native";
+import { ParamListBase, useFocusEffect } from "@react-navigation/native";
 
 const Drawer = createDrawerNavigator();
 
@@ -19,16 +19,6 @@ type Props = NativeStackScreenProps<ParamListBase> & {
 };
 
 const CalcNavigator = ({ navigation, params }: Props) => {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (!params) {
-      <Text style={{ color: "#fff" }}>Loading...</Text>;
-    } else {
-      setIsLoggedIn(params.loggedIn);
-    }
-  }, [params]);
-
   const handleLogout = () => {
     auth.signOut().then(() => navigation.navigate("Home"));
   };
@@ -47,7 +37,9 @@ const CalcNavigator = ({ navigation, params }: Props) => {
       initialRouteName="CalcHome"
     >
       <Drawer.Screen name="CalcHome">
-        {(props) => <CalcHome {...props} params={{ loggedIn: isLoggedIn }} />}
+        {(props) => (
+          <CalcHome {...props} params={{ loggedIn: params.loggedIn }} />
+        )}
       </Drawer.Screen>
     </Drawer.Navigator>
   );
