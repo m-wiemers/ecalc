@@ -29,7 +29,10 @@ const HomeScreen = ({ navigation, ...props }: Props) => {
       .signInWithEmailAndPassword(email, password)
       .then(() => {
         if (auth.currentUser?.emailVerified) {
-          navigation.navigate("Settings");
+          navigation.navigate("CalcNavigator", {
+            screen: "CalcNavigator",
+            params: { loggedIn: true },
+          });
         } else {
           console.log("not verified");
           const emailAdress = auth.currentUser?.email;
@@ -74,9 +77,11 @@ const HomeScreen = ({ navigation, ...props }: Props) => {
         onPress={() => navigation.navigate("Register")}
       />
       <StyledButton
-        addStyle={{ position: "absolute", bottom: 30 }}
+        addStyle={{ marginTop: 20 }}
         label="Ohne Anmeldung weiter"
-        onPress={() => navigation.navigate("Calc")}
+        onPress={() =>
+          navigation.navigate("CalcNavigator", { params: { loggedIn: false } })
+        }
       />
     </View>
   );
