@@ -8,6 +8,7 @@ import CalcHome from "../pages/CalcHome";
 import { auth } from "../firebase";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { ParamListBase } from "@react-navigation/native";
+import appStyles from "../styles/appStyles";
 
 const Drawer = createDrawerNavigator();
 
@@ -25,6 +26,10 @@ const CalcNavigator = ({ navigation, route }: Props) => {
   function CustomDrawerContent({ ...props }) {
     return (
       <DrawerContentScrollView {...props}>
+        <DrawerItem
+          label="Home"
+          onPress={() => navigation.navigate("Home", { params })}
+        />
         <DrawerItem label="Logout" onPress={handleLogout} />
       </DrawerContentScrollView>
     );
@@ -34,6 +39,10 @@ const CalcNavigator = ({ navigation, route }: Props) => {
     <Drawer.Navigator
       drawerContent={(props) => <CustomDrawerContent {...props} />}
       initialRouteName="CalcHome"
+      screenOptions={{
+        headerStyle: appStyles.header,
+        sceneContainerStyle: appStyles.container,
+      }}
     >
       <Drawer.Screen
         name="CalcHome"

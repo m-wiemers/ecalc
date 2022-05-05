@@ -4,7 +4,7 @@ import StyledButton from "../components/StyledButton";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { ParamListBase, useFocusEffect } from "@react-navigation/native";
 import { auth } from "../firebase";
-import StyledInput from "../components/StyledInput";
+import StyledInput from "../components/Inputs/StyledInput";
 import Title from "../components/Title";
 import globalStyles from "../styles/global";
 import LinkText from "../components/LinkText";

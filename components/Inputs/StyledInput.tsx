@@ -1,19 +1,7 @@
-import React, {
-  ClassAttributes,
-  ForwardRefExoticComponent,
-  RefAttributes,
-  RefObject,
-  useState,
-} from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  NativeSyntheticEvent,
-  TextInputFocusEventData,
-} from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet } from "react-native";
 import { TextInput, TextInputProps } from "react-native";
-import color from "../styles/colors";
+import color from "../../styles/colors";
 
 type Props = {
   label?: string;

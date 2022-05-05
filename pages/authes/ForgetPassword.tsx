@@ -3,7 +3,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useState } from "react";
 import { View } from "react-native";
 import StyledButton from "../../components/StyledButton";
-import StyledInput from "../../components/StyledInput";
+import StyledInput from "../../components/Inputs/StyledInput";
 import Title from "../../components/Title";
 import { auth } from "../../firebase";
 

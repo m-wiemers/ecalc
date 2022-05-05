@@ -5,7 +5,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { ParamListBase } from "@react-navigation/native";
 import { auth } from "../../firebase";
 import Title from "../../components/Title";
-import StyledInput from "../../components/StyledInput";
+import StyledInput from "../../components/Inputs/StyledInput";
 
 type Props = NativeStackScreenProps<ParamListBase>;
 
