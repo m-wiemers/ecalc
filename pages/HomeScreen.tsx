@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { View, Text } from "react-native";
 import StyledButton from "../components/StyledButton";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
@@ -8,15 +8,11 @@ import StyledInput from "../components/StyledInput";
 import Title from "../components/Title";
 import globalStyles from "../styles/global";
 import LinkText from "../components/LinkText";
+import { UserProps } from "../navigators/HomeNavigator";
 
 type Props = NativeStackScreenProps<ParamListBase>;
 
-type UserProps = {
-  loggedIn: boolean;
-  id: string;
-};
-
-const HomeScreen = ({ navigation, route, ...props }: Props) => {
+const HomeScreen = ({ navigation, route, ...props }: Props & UserProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [notClickable, setNotClickable] = useState(true);
@@ -24,16 +20,15 @@ const HomeScreen = ({ navigation, route, ...props }: Props) => {
     loggedIn: false,
     id: "",
   });
-  const params: any = route.params;
+  const routeState: any = route.params;
 
-  useFocusEffect(() => {
-    if (params) {
-      const state = params.loggedIn;
-      const id = params.id;
-      setLoggedIn({ loggedIn: state, id: id });
-    }
-    console.log(loggedIn);
-  });
+  useFocusEffect(
+    useCallback(() => {
+      if (routeState) {
+        setLoggedIn({ loggedIn: routeState.loggedIn, id: routeState.id });
+      }
+    }, [routeState])
+  );
 
   useEffect(() => {
     {

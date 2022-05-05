@@ -39,7 +39,6 @@ const CalcNavigator = ({ navigation, route }: Props) => {
         name="CalcHome"
         component={CalcHome}
         initialParams={params}
-        options={{ unmountOnBlur: true }}
       />
     </Drawer.Navigator>
   );
