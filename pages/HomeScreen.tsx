@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text } from "react-native";
 import StyledButton from "../components/StyledButton";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { ParamListBase } from "@react-navigation/native";
+import { ParamListBase, useFocusEffect } from "@react-navigation/native";
 import { auth } from "../firebase";
 import StyledInput from "../components/StyledInput";
 import Title from "../components/Title";
@@ -11,16 +11,28 @@ import LinkText from "../components/LinkText";
 
 type Props = NativeStackScreenProps<ParamListBase>;
 
-const HomeScreen = ({ navigation, ...props }: Props) => {
+type UserProps = {
+  loggedIn: boolean;
+  id: string;
+};
+
+const HomeScreen = ({ navigation, route, ...props }: Props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [notClickable, setNotClickable] = useState(true);
+  const [loggedIn, setLoggedIn] = useState<UserProps>({
+    loggedIn: false,
+    id: "",
+  });
+  const params: any = route.params;
 
-  auth.onAuthStateChanged((user) => {
-    const userIsVerified = auth.currentUser?.emailVerified;
-    if (user && userIsVerified) {
-      navigation.navigate("CalcNavigator", { loggedIn: true });
+  useFocusEffect(() => {
+    if (params) {
+      const state = params.loggedIn;
+      const id = params.id;
+      setLoggedIn({ loggedIn: state, id: id });
     }
+    console.log(loggedIn);
   });
 
   useEffect(() => {
@@ -36,7 +48,8 @@ const HomeScreen = ({ navigation, ...props }: Props) => {
       .signInWithEmailAndPassword(email, password)
       .then(() => {
         if (auth.currentUser?.emailVerified) {
-          navigation.navigate("CalcNavigator", { loggedIn: true });
+          const userId = auth.currentUser.uid;
+          navigation.navigate("CalcNavigator", { loggedIn: true, id: userId });
         } else {
           console.log("not verified");
           const emailAdress = auth.currentUser?.email;
@@ -50,41 +63,48 @@ const HomeScreen = ({ navigation, ...props }: Props) => {
     <View {...props} style={{ flex: 1, alignItems: "center", marginTop: 40 }}>
       <Title text="Melde dich an" />
 
-      <StyledInput
-        label="Email-Adresse"
-        placeholder="deinName@domain.de"
-        value={email}
-        onChangeText={(text) => setEmail(text)}
-      />
-      <StyledInput
-        label="Passwort"
-        placeholder="DeinPasswort"
-        value={password}
-        onChangeText={(text) => setPassword(text)}
-        secureTextEntry
-      />
-      <StyledButton
-        label="Login"
-        onPress={handleLogin}
-        addStyle={{ marginTop: 20 }}
-        disabled={notClickable}
-      />
-      <LinkText
-        label="Passwort vergessen"
-        onPress={() => navigation.navigate("Forget Password")}
-      />
-      <Text style={[globalStyles.underline, { marginTop: 40 }]}>
-        Noch kein Konto?
-      </Text>
-      <StyledButton
-        label="Anmelden"
-        onPress={() => navigation.navigate("Register")}
-      />
+      {!loggedIn.loggedIn && (
+        <>
+          <StyledInput
+            label="Email-Adresse"
+            placeholder="deinName@domain.de"
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+          />
+          <StyledInput
+            label="Passwort"
+            placeholder="DeinPasswort"
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+            secureTextEntry
+          />
+          <StyledButton
+            label="Login"
+            onPress={handleLogin}
+            addStyle={{ marginTop: 20 }}
+            disabled={notClickable}
+          />
+          <LinkText
+            label="Passwort vergessen"
+            onPress={() => navigation.navigate("Forget Password")}
+          />
+          <Text style={[globalStyles.underline, { marginTop: 40 }]}>
+            Noch kein Konto?
+          </Text>
+          <StyledButton
+            label="Anmelden"
+            onPress={() => navigation.navigate("Register")}
+          />
+        </>
+      )}
       <StyledButton
         addStyle={{ marginTop: 20 }}
         label="Ohne Anmeldung weiter"
         onPress={() =>
-          navigation.navigate("CalcNavigator", { loggedIn: false })
+          navigation.navigate("CalcNavigator", {
+            loggedIn: loggedIn.loggedIn,
+            id: loggedIn.id,
+          })
         }
       />
     </View>

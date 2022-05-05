@@ -1,5 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { Text } from "react-native";
+import React from "react";
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -15,10 +14,12 @@ const Drawer = createDrawerNavigator();
 type Props = NativeStackScreenProps<ParamListBase>;
 
 const CalcNavigator = ({ navigation, route }: Props) => {
-  const isLoggedIn: any = route.params;
+  const params: any = route.params;
 
   const handleLogout = () => {
-    auth.signOut().then(() => navigation.navigate("Home"));
+    auth
+      .signOut()
+      .then(() => navigation.navigate("Home", { loggedIn: false, id: "" }));
   };
 
   function CustomDrawerContent({ ...props }) {
@@ -37,7 +38,7 @@ const CalcNavigator = ({ navigation, route }: Props) => {
       <Drawer.Screen
         name="CalcHome"
         component={CalcHome}
-        initialParams={isLoggedIn}
+        initialParams={params}
         options={{ unmountOnBlur: true }}
       />
     </Drawer.Navigator>

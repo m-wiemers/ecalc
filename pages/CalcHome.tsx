@@ -1,26 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { ParamListBase } from "@react-navigation/native";
+import { ParamListBase, RouteProp } from "@react-navigation/native";
 const Drawer = createDrawerNavigator();
 
 type Props = NativeStackScreenProps<ParamListBase>;
 
 const CalcHome = ({ navigation, route }: Props) => {
-  const isLoggedIn: any = route.params;
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userId, setUserId] = useState(null);
+  const routeState: any = route.params;
 
-  console.log(isLoggedIn?.loggedIn);
+  useEffect(() => {
+    if (routeState.loggedIn) {
+      setIsLoggedIn(routeState.loggedIn);
+      setUserId(routeState.id);
+    }
+  }, [route]);
 
   return (
-    <SafeAreaView>
+    <View>
       {isLoggedIn ? (
-        <Text>du bist eingelogged</Text>
+        <Text>du bist eingelogged mit der User is {userId}</Text>
       ) : (
         <Text>Du bist nicht eingelogged :-(</Text>
       )}
-    </SafeAreaView>
+    </View>
   );
 };
 
