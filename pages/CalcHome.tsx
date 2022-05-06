@@ -7,6 +7,7 @@ import { ParamListBase } from "@react-navigation/native";
 import globalStyles from "../styles/global";
 import StyledCurrencyInput from "../components/Inputs/StyledCurrencyInput";
 import StyledSwitch from "../components/atoms/StyledSwitch";
+import OwnSwitch from "../components/atoms/OwnSwitch";
 const Drawer = createDrawerNavigator();
 
 type Props = NativeStackScreenProps<ParamListBase>;
@@ -35,6 +36,7 @@ const CalcHome = ({ navigation, route }: Props) => {
         onChangeValue={(val) => setBuyPrice(val)}
       />
       <StyledSwitch />
+      <OwnSwitch press={() => setAuction(!auction)} />
     </SafeAreaView>
   );
 };

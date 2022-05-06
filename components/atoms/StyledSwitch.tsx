@@ -33,6 +33,7 @@ const toggleStyle = StyleSheet.create({
   container: {
     width: 60,
     height: 40,
+    marginBottom: 40,
   },
   switch: {
     transform: [
