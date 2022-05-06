@@ -6,8 +6,9 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { ParamListBase } from "@react-navigation/native";
 import globalStyles from "../styles/global";
 import StyledCurrencyInput from "../components/Inputs/StyledCurrencyInput";
-import StyledSwitch from "../components/atoms/StyledSwitch";
 import OwnSwitch from "../components/atoms/OwnSwitch";
+import StyledSwitch from "../components/molecules/StyledSwitch";
+import InputWithSwitch from "../components/molecules/InputWithSwitch";
 const Drawer = createDrawerNavigator();
 
 type Props = NativeStackScreenProps<ParamListBase>;
@@ -17,6 +18,7 @@ const CalcHome = ({ navigation, route }: Props) => {
   const [userId, setUserId] = useState(null);
   const [buyPrice, setBuyPrice] = useState<number | null>(null);
   const [auction, setAuction] = useState<boolean>(false);
+  const [gallery, setGallery] = useState<boolean>(false);
   const routeState: any = route.params;
 
   useEffect(() => {
@@ -28,15 +30,21 @@ const CalcHome = ({ navigation, route }: Props) => {
 
   return (
     <SafeAreaView style={calcHomeStyle.container}>
-      <Text style={globalStyles.text}>Hallo!</Text>
       <StyledCurrencyInput
         label="Einkaufspreis"
         placeholder="0.00 €"
         value={buyPrice}
         onChangeValue={(val) => setBuyPrice(val)}
       />
-      <StyledSwitch />
-      <OwnSwitch press={() => setAuction(!auction)} />
+      <StyledSwitch
+        underline={auction ? "Auktion" : "Angebot"}
+        press={() => setAuction(!auction)}
+        label="Angebotsformat"
+      />
+      <InputWithSwitch
+        info="Gallerie Plus"
+        press={() => setGallery(!gallery)}
+      />
     </SafeAreaView>
   );
 };

@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { Pressable, View, StyleSheet, PressableProps } from "react-native";
 import color from "../../styles/colors";
 
-type Props = PressableProps & {
+export type OwnSwitchProps = PressableProps & {
   press(): void;
+  trueFalse?: boolean;
 };
 
-const OwnSwitch = ({ press, ...props }: Props) => {
+const OwnSwitch = ({ press, trueFalse, ...props }: OwnSwitchProps) => {
   const [isTrue, setIsTrue] = useState<boolean>(false);
 
   const toggleState = () => {
@@ -16,9 +17,29 @@ const OwnSwitch = ({ press, ...props }: Props) => {
 
   return (
     <Pressable onPress={toggleState} {...props}>
-      <View style={style.view}>
-        <View style={isTrue ? style.pointLeft : style.pointRight}></View>
-      </View>
+      {!trueFalse ? (
+        <View style={style.view}>
+          <View
+            style={
+              isTrue ? style.pointLeft : [style.pointLeft, style.pointRight]
+            }
+          ></View>
+        </View>
+      ) : (
+        <View
+          style={
+            isTrue
+              ? [style.view, style.stateFalse]
+              : [style.view, style.stateTrue]
+          }
+        >
+          <View
+            style={
+              isTrue ? style.pointLeft : [style.pointLeft, style.pointRight]
+            }
+          ></View>
+        </View>
+      )}
     </Pressable>
   );
 };
@@ -43,11 +64,12 @@ const style = StyleSheet.create({
     borderRadius: 50,
   },
   pointRight: {
-    height: 24,
-    width: 24,
-    marginTop: 1.1,
     marginLeft: 25,
+  },
+  stateTrue: {
     backgroundColor: "green",
-    borderRadius: 50,
+  },
+  stateFalse: {
+    backgroundColor: "red",
   },
 });
