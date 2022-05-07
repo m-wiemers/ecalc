@@ -7,7 +7,7 @@ type Props = {
   info: string;
 };
 
-const InputWithSwitch = ({ info, press }: Props & OwnSwitchProps) => {
+const TrueFalseSwitch = ({ info, press }: Props & OwnSwitchProps) => {
   return (
     <View style={Styles.container}>
       <OwnSwitch press={press} trueFalse />
@@ -16,7 +16,7 @@ const InputWithSwitch = ({ info, press }: Props & OwnSwitchProps) => {
   );
 };
 
-export default InputWithSwitch;
+export default TrueFalseSwitch;
 
 const Styles = StyleSheet.create({
   container: {

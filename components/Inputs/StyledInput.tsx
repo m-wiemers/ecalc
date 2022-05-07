@@ -66,6 +66,6 @@ const inputStyle = StyleSheet.create({
     borderColor: color.indigo._700,
   },
   error: {
-    borderColor: "red",
+    borderColor: color.warn._100,
   },
 });

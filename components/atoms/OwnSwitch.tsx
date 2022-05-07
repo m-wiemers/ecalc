@@ -67,9 +67,9 @@ const style = StyleSheet.create({
     marginLeft: 25,
   },
   stateTrue: {
-    backgroundColor: "green",
+    backgroundColor: color.ok._200,
   },
   stateFalse: {
-    backgroundColor: "red",
+    backgroundColor: color.warn._200,
   },
 });

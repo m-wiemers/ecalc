@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { View, Text } from "react-native";
+import { View, Text, StatusBar } from "react-native";
 import StyledButton from "../components/StyledButton";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { ParamListBase, useFocusEffect } from "@react-navigation/native";
@@ -9,6 +9,7 @@ import Title from "../components/Title";
 import globalStyles from "../styles/global";
 import LinkText from "../components/LinkText";
 import { UserProps } from "../navigators/HomeNavigator";
+import color from "../styles/colors";
 
 type Props = NativeStackScreenProps<ParamListBase>;
 
@@ -56,42 +57,40 @@ const HomeScreen = ({ navigation, route, ...props }: Props & UserProps) => {
 
   return (
     <View {...props} style={{ flex: 1, alignItems: "center", marginTop: 40 }}>
+      <StatusBar backgroundColor={color.indigo._700} />
       <Title text="Melde dich an" />
 
-      {!loggedIn.loggedIn && (
-        <>
-          <StyledInput
-            label="Email-Adresse"
-            placeholder="deinName@domain.de"
-            value={email}
-            onChangeText={(text) => setEmail(text)}
-          />
-          <StyledInput
-            label="Passwort"
-            placeholder="DeinPasswort"
-            value={password}
-            onChangeText={(text) => setPassword(text)}
-            secureTextEntry
-          />
-          <StyledButton
-            label="Login"
-            onPress={handleLogin}
-            addStyle={{ marginTop: 20 }}
-            disabled={notClickable}
-          />
-          <LinkText
-            label="Passwort vergessen"
-            onPress={() => navigation.navigate("Forget Password")}
-          />
-          <Text style={[globalStyles.underline, { marginTop: 40 }]}>
-            Noch kein Konto?
-          </Text>
-          <StyledButton
-            label="Anmelden"
-            onPress={() => navigation.navigate("Register")}
-          />
-        </>
-      )}
+      <StyledInput
+        label="Email-Adresse"
+        placeholder="deinName@domain.de"
+        value={email}
+        onChangeText={(text) => setEmail(text)}
+      />
+      <StyledInput
+        label="Passwort"
+        placeholder="DeinPasswort"
+        value={password}
+        onChangeText={(text) => setPassword(text)}
+        secureTextEntry
+      />
+      <StyledButton
+        label="Login"
+        onPress={handleLogin}
+        addStyle={{ marginTop: 20 }}
+        disabled={notClickable}
+      />
+      <LinkText
+        label="Passwort vergessen"
+        onPress={() => navigation.navigate("Forget Password")}
+      />
+      <Text style={[globalStyles.underline, { marginTop: 40 }]}>
+        Noch kein Konto?
+      </Text>
+      <StyledButton
+        label="Anmelden"
+        onPress={() => navigation.navigate("Register")}
+      />
+
       <StyledButton
         addStyle={{ marginTop: 20 }}
         label="Ohne Anmeldung weiter"
