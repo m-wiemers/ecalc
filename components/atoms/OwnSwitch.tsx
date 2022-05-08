@@ -70,6 +70,6 @@ const style = StyleSheet.create({
     backgroundColor: color.ok._200,
   },
   stateFalse: {
-    backgroundColor: color.warn._200,
+    backgroundColor: color.grey._200,
   },
 });

@@ -23,6 +23,7 @@ const Styles = StyleSheet.create({
     alignSelf: "flex-start",
     display: "flex",
     flexDirection: "row",
+    marginVertical: 5,
   },
   info: {
     color: color.indigo._400,

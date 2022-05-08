@@ -13,22 +13,34 @@ const Drawer = createDrawerNavigator();
 
 type Props = NativeStackScreenProps<ParamListBase>;
 
-type PriceProps = {
-  withTax: number;
-  withoutTax: number;
+type OptionProps = {
+  gallery: boolean;
+  basisPackage: boolean;
+  underTitle: boolean;
+  template: boolean;
+  secondCategorie: boolean;
+  startTime: boolean;
+  minimumPrice: boolean;
+  noBuyerList: boolean;
 };
 
 const CalcHome = ({ navigation, route }: Props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userId, setUserId] = useState(null);
   const [tax, setTax] = useState<boolean>(false);
-  const [buyPrice, setBuyPrice] = useState<PriceProps>({
-    withTax: 0.0,
-    withoutTax: 0.0,
-  });
+  const [buyPrice, setBuyPrice] = useState<number>(0.0);
   const [auction, setAuction] = useState<boolean>(false);
-  const [gallery, setGallery] = useState<boolean>(false);
   const [privateAc, setPrivateAc] = useState<boolean>(false);
+  const [options, setOptions] = useState<OptionProps>({
+    gallery: false,
+    basisPackage: false,
+    underTitle: false,
+    template: false,
+    secondCategorie: false,
+    startTime: false,
+    minimumPrice: false,
+    noBuyerList: false,
+  });
   const routeState: any = route.params;
 
   useEffect(() => {
@@ -38,9 +50,9 @@ const CalcHome = ({ navigation, route }: Props) => {
     }
   }, [route]);
 
-  const handleBuyPriceChange = (val: any) => {
-    if (val === null) [setBuyPrice({ withoutTax: 0.0, withTax: 0.0 })];
-    setBuyPrice({ withoutTax: val, withTax: val * 1.19 });
+  const handleBuyPriceSwitch = () => {
+    setTax(!tax);
+    tax ? setBuyPrice((buyPrice / 119) * 100) : setBuyPrice(buyPrice * 1.19);
   };
 
   return (
@@ -49,35 +61,39 @@ const CalcHome = ({ navigation, route }: Props) => {
         <StyledCurrencyInput
           label="Einkaufspreis"
           placeholder="0.00 €"
-          value={buyPrice.withoutTax}
-          onChangeValue={(val) => handleBuyPriceChange(val)}
+          value={buyPrice}
+          onChangeValue={(val) => setBuyPrice(val ? val : 0.0)}
         />
         <StyledSwitch
           style={calcHomeStyle.taxSwitch}
           underline={tax ? "Brutto" : "Netto"}
-          press={() => setTax(!tax)}
+          press={handleBuyPriceSwitch}
         />
       </View>
       <Text style={[globalStyles.text, { marginBottom: 20 }]}>
         {tax ? "Nettopreis: " : "Bruttopreis: "}
-        {!tax
-          ? ToPrice(buyPrice.withoutTax * 1.19)
-          : ToPrice((buyPrice.withoutTax / 119) * 100)}
+        {tax ? ToPrice((buyPrice / 119) * 100) : ToPrice(buyPrice * 1.19)}
       </Text>
 
       <View style={calcHomeStyle.settingsWrapper}>
         <StyledSwitch
+          addStyle={{ width: "50%" }}
           label={privateAc ? "Privat" : "Gewerblich"}
           press={() => setPrivateAc(!privateAc)}
         />
         <StyledSwitch
+          addStyle={{ width: "50%" }}
           label={auction ? "Auktion" : "Angebot"}
           press={() => setAuction(!auction)}
         />
       </View>
       <TrueFalseSwitch
         info="Gallerie Plus"
-        press={() => setGallery(!gallery)}
+        press={() => setOptions({ ...options, gallery: true })}
+      />
+      <TrueFalseSwitch
+        info="Untertitel"
+        press={() => setOptions({ ...options, underTitle: true })}
       />
     </SafeAreaView>
   );
@@ -101,8 +117,6 @@ const calcHomeStyle = StyleSheet.create({
   settingsWrapper: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-around",
-    marginHorizontal: 10,
     marginBottom: 20,
   },
 });

@@ -1,21 +1,23 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ViewStyle } from "react-native";
 import color from "../../styles/colors";
 import OwnSwitch, { OwnSwitchProps } from "../atoms/OwnSwitch";
 
 type Props = {
   label?: string;
   underline?: string;
+  addStyle?: ViewStyle;
 };
 
 const StyledSwitch = ({
   label,
   underline,
   press,
+  addStyle,
   ...props
 }: Props & OwnSwitchProps) => {
   return (
-    <View style={Styles.container}>
+    <View style={Styles.container} {...addStyle}>
       {label && <Text style={Styles.label}>{label}</Text>}
       <OwnSwitch press={press} {...props} />
       {underline && <Text style={Styles.underline}>{underline}</Text>}
