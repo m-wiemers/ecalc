@@ -10,6 +10,7 @@ import StyledSwitch from "../components/molecules/StyledSwitch";
 import TrueFalseSwitch from "../components/molecules/TrueFalseSwitch";
 import { ToPrice } from "../components/helper/PriceHelper";
 import { FlipInEasyX } from "react-native-reanimated";
+import HorizontalLine from "../components/atoms/HorizontaleLine";
 const Drawer = createDrawerNavigator();
 
 type Props = NativeStackScreenProps<ParamListBase>;
@@ -77,6 +78,8 @@ const CalcHome = ({ navigation, route }: Props) => {
         {tax ? ToPrice((buyPrice / 119) * 100) : ToPrice(buyPrice * 1.19)}
       </Text>
 
+      <HorizontalLine label="Optionen" />
+
       <View style={calcHomeStyle.settingsWrapper}>
         <StyledSwitch
           addStyle={{ width: "50%" }}
@@ -91,6 +94,8 @@ const CalcHome = ({ navigation, route }: Props) => {
           press={() => setAuction(!auction)}
         />
       </View>
+
+      <HorizontalLine label="Zusatzoptionen" />
 
       <View style={calcHomeStyle.optionsWrapper}>
         <View style={calcHomeStyle.optionsInnerWrapper}>
@@ -177,7 +182,7 @@ const calcHomeStyle = StyleSheet.create({
   settingsWrapper: {
     display: "flex",
     flexDirection: "row",
-    marginBottom: 20,
+    marginBottom: 30,
   },
   optionsWrapper: {
     display: "flex",
