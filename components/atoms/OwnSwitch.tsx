@@ -1,19 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Pressable, View, StyleSheet, PressableProps } from "react-native";
+import { useEvent } from "react-native-reanimated";
 import color from "../../styles/colors";
 
 export type OwnSwitchProps = PressableProps & {
   press(): void;
   trueFalse?: boolean;
+  state: true | false;
 };
 
-const OwnSwitch = ({ press, trueFalse, ...props }: OwnSwitchProps) => {
-  const [isTrue, setIsTrue] = useState<boolean>(false);
+const OwnSwitch = ({ press, trueFalse, state, ...props }: OwnSwitchProps) => {
+  const [isTrue, setIsTrue] = useState<boolean>(state);
 
   const toggleState = () => {
     setIsTrue(!isTrue);
     press();
   };
+
+  useEffect(() => {
+    {
+      state == !true ? setIsTrue(true) : setIsTrue(false);
+    }
+  }, [state, isTrue]);
 
   return (
     <Pressable onPress={toggleState} {...props}>

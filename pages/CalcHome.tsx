@@ -9,6 +9,7 @@ import StyledCurrencyInput from "../components/Inputs/StyledCurrencyInput";
 import StyledSwitch from "../components/molecules/StyledSwitch";
 import TrueFalseSwitch from "../components/molecules/TrueFalseSwitch";
 import { ToPrice } from "../components/helper/PriceHelper";
+import { FlipInEasyX } from "react-native-reanimated";
 const Drawer = createDrawerNavigator();
 
 type Props = NativeStackScreenProps<ParamListBase>;
@@ -67,6 +68,7 @@ const CalcHome = ({ navigation, route }: Props) => {
         <StyledSwitch
           style={calcHomeStyle.taxSwitch}
           underline={tax ? "Brutto" : "Netto"}
+          state={tax}
           press={handleBuyPriceSwitch}
         />
       </View>
@@ -79,22 +81,80 @@ const CalcHome = ({ navigation, route }: Props) => {
         <StyledSwitch
           addStyle={{ width: "50%" }}
           label={privateAc ? "Privat" : "Gewerblich"}
+          state={privateAc}
           press={() => setPrivateAc(!privateAc)}
         />
         <StyledSwitch
           addStyle={{ width: "50%" }}
           label={auction ? "Auktion" : "Angebot"}
+          state={auction}
           press={() => setAuction(!auction)}
         />
       </View>
-      <TrueFalseSwitch
-        info="Gallerie Plus"
-        press={() => setOptions({ ...options, gallery: true })}
-      />
-      <TrueFalseSwitch
-        info="Untertitel"
-        press={() => setOptions({ ...options, underTitle: true })}
-      />
+
+      <View style={calcHomeStyle.optionsWrapper}>
+        <View style={calcHomeStyle.optionsInnerWrapper}>
+          <TrueFalseSwitch
+            info="Gallerie Plus"
+            state={options.gallery}
+            press={() => setOptions({ ...options, gallery: !options.gallery })}
+          />
+          <TrueFalseSwitch
+            info="Basispaket"
+            state={options.basisPackage}
+            press={() =>
+              setOptions({ ...options, basisPackage: !options.basisPackage })
+            }
+          />
+          <TrueFalseSwitch
+            info="Untertitel"
+            state={options.underTitle}
+            press={() =>
+              setOptions({ ...options, underTitle: !options.underTitle })
+            }
+          />
+          <TrueFalseSwitch
+            info="Vorlage"
+            state={options.template}
+            press={() =>
+              setOptions({ ...options, template: !options.template })
+            }
+          />
+        </View>
+        <View style={calcHomeStyle.optionsInnerWrapper}>
+          <TrueFalseSwitch
+            info="2. Kategorie"
+            state={options.secondCategorie}
+            press={() =>
+              setOptions({
+                ...options,
+                secondCategorie: !options.secondCategorie,
+              })
+            }
+          />
+          <TrueFalseSwitch
+            info="Feste Startzeit"
+            state={options.startTime}
+            press={() =>
+              setOptions({ ...options, startTime: !options.startTime })
+            }
+          />
+          <TrueFalseSwitch
+            info="Mindestpreis"
+            state={options.minimumPrice}
+            press={() =>
+              setOptions({ ...options, minimumPrice: !options.minimumPrice })
+            }
+          />
+          <TrueFalseSwitch
+            info="Keine Verkäuferliste"
+            state={options.noBuyerList}
+            press={() =>
+              setOptions({ ...options, noBuyerList: !options.noBuyerList })
+            }
+          />
+        </View>
+      </View>
     </SafeAreaView>
   );
 };
@@ -118,5 +178,13 @@ const calcHomeStyle = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     marginBottom: 20,
+  },
+  optionsWrapper: {
+    display: "flex",
+    flexDirection: "row",
+    marginRight: 10,
+  },
+  optionsInnerWrapper: {
+    width: "50%",
   },
 });

@@ -7,10 +7,10 @@ type Props = {
   info: string;
 };
 
-const TrueFalseSwitch = ({ info, press }: Props & OwnSwitchProps) => {
+const TrueFalseSwitch = ({ info, state, press }: Props & OwnSwitchProps) => {
   return (
     <View style={Styles.container}>
-      <OwnSwitch press={press} trueFalse />
+      <OwnSwitch press={press} trueFalse state={state} />
       <Text style={Styles.info}>{info}</Text>
     </View>
   );
@@ -29,6 +29,6 @@ const Styles = StyleSheet.create({
     color: color.indigo._400,
     textAlignVertical: "center",
     marginLeft: 10,
-    fontSize: 20,
+    fontSize: 14,
   },
 });
